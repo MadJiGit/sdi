@@ -30,5 +30,8 @@
         <span>
             <a class="btn btn-success" href="register.php" role="button">Register</a>
         </span>
+        <span>
+            <a class="btn btn-warning" href="forget_pass.php" role="button">Forget Password</a>
+        </span>
     </form>
 </div>

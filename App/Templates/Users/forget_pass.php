@@ -17,7 +17,8 @@ foreach ($errors as $error): ?>
 			</label>
 		</div>
 		<span>
-            <a class="btn btn-warning" href="reset_pass.php" role="button">Reset Password</a>
+            <input type="submit" class="btn btn-warning" name="forget_pass" value="Reset Password">
+<!--            <a class="btn btn-warning" href="forget_pass.php" role="button">Reset Password</a>-->
         </span>
 	</form>
 </div>

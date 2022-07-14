@@ -78,7 +78,7 @@ class UserService implements UserServiceInterface
 
 	public function resetPassword(string $email, string $username, string $confirmPassword): bool
 	{
-		// TODO: Implement resetPassword() method.
+		var_dump("resetPassword\n");
 
 		return 0;
 	}
@@ -128,6 +128,8 @@ class UserService implements UserServiceInterface
 	 */
 	public function update(UserDTO $userDTO, mixed $confirm_password): bool
 	{
+		var_dump("update\n");
+		//var_dump($userDTO['username']. "\n");
 		$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
 		if(null === $user){
 			throw new \Exception("Email do not exist!");
@@ -143,7 +145,7 @@ class UserService implements UserServiceInterface
 
 		$this->encryptPassword($userDTO);
 
-		return $this->userRepository->insert($userDTO);
+		return $this->userRepository->edit($userDTO);
 	}
 
 

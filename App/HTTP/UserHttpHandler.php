@@ -70,8 +70,10 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	public function forgetPassword(array $formData = [])
 	{
-		if (isset($formData['forget_password'])) {
-			$this->handlerResetPasswordProcess($formData);
+		var_dump("forgetPassword " . "\n");
+		if (isset($formData['forget_pass'])) {
+			var_dump("forgetPassword 2 " . $formData['email'] . "\n");
+			$this->redirect("reset_pass.php");
 		} else {
 			//$this->render("static/pages-reset-password.html");
 			$this->render("users/forget_pass");
@@ -83,7 +85,10 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	public function resetPassword(array $formData = [])
 	{
-		if (isset($formData['reset_password'])) {
+
+		var_dump("resetPassword " . "\n");
+
+		if (isset($formData['reset_pass'])) {
 			$this->handlerResetPasswordProcess($formData);
 		} else {
 			//$this->render("static/pages-new-password.html");
@@ -91,6 +96,23 @@ class UserHttpHandler extends HttpHandlerAbstract
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
+	private function handlerResetPasswordProcess(array $formData)
+	{
+		var_dump("handlerResetPasswordProcess " . $formData['username'] . "\n");
+		$formData['email'] = $this->userService->currentUser()->getEmail();
+
+		try {
+			$user = $this->dataBinder->bind($formData, UserDTO::class);
+			$this->userService->update($user, $formData['confirm_password']);
+			$this->redirect("login.php");
+		} catch (Exception $ex) {
+			//$this->render("static/pages-new-password.html", $formData, [$ex->getMessage()]);
+			$this->render("users/reset_pass", $formData, [$ex->getMessage()]);
+		}
+	}
 	/**
 	 * @param array $formData
 	 */
@@ -127,28 +149,5 @@ class UserHttpHandler extends HttpHandlerAbstract
 		}
 	}
 
-	/**
-	 * @throws Exception
-	 */
-	private function handlerResetPasswordProcess(array $formData, string $email)
-	{
-		/*
-		// TODO check if user is login and username and email are correct
-		$user = $this->userService->currentUser();
 
-		if($user->getUsername() !== $formData['username']) {
-			throw new Exception("Username is not valid for this user!");
-		}
-		*/
-		$formData['email'] = $this->userService->currentUser()->getEmail();
-
-		try {
-			$user = $this->dataBinder->bind($formData, UserDTO::class);
-			$this->userService->update($user, $formData['confirm_password']);
-			$this->redirect("login.php");
-		} catch (Exception $ex) {
-			//$this->render("static/pages-new-password.html", $formData, [$ex->getMessage()]);
-			$this->render("users/reset_pass", $formData, [$ex->getMessage()]);
-		}
-	}
 }

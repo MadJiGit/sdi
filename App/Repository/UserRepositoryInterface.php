@@ -8,6 +8,8 @@ interface UserRepositoryInterface
 {
 	public function insert(UserDTO $userDTO) : bool;
 
+	public function edit(UserDTO $userDTO) : bool;
+
 	public function findOneUserByData(string $data) : ?UserDTO;
 
 	public function findOneByUsername(string $username) : ?UserDTO;

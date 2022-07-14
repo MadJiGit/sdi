@@ -13,10 +13,9 @@ foreach ($errors as $error): ?>
 	<form method="POST">
 		<div>
 			<label>
-				Username: <input class="form-control"  placeholder="Username" type="text" name="username" value="<?= $data != null ? $data['username'] : "" ?>">
+				Username: <input class="form-control"  placeholder="Username" type="text" name="username">
 			</label>
-		</div>
-
+        </div>
 		<div>
 			<label>
 				Password: <input class="form-control"  placeholder="Password" type="password" name="password">
@@ -29,6 +28,10 @@ foreach ($errors as $error): ?>
 			</label>
 		</div>
 		<span>
-            <a class="btn btn-success" href="login.php" role="button">Reset Password</a>
+<!--            <a class="btn btn-warning" href="reset_pass" role="button">Reset Password</a>-->
+            <input type="submit" class="btn btn-warning" name="reset_pass" value="Reset Password">
+    </span>
+        <span>
+            <a class="btn btn-success" href="login.php" role="button">Log In</a>
     </span>
 	</form>

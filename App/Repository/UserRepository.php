@@ -21,6 +21,24 @@ class UserRepository implements UserRepositoryInterface
 		$this->db = $db;
 	}
 
+	public function edit(UserDTO $userDTO): bool
+	{
+		var_dump("update username " . $userDTO->getUsername() . "\n");
+		$newPass = $userDTO->getPassword();
+		$currrentEmail= $userDTO->getEmail();
+		var_dump("update new pass " . $newPass . "\n");
+		$this->db->query("
+			UPDATE users SET 
+			                 password = ?
+          	WHERE email=?"
+		)->execute([
+			$newPass,
+			$currrentEmail
+		]);
+
+		return true;
+	}
+
 
 	public function insert(UserDTO $userDTO): bool
 	{
