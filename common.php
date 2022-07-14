@@ -5,7 +5,7 @@ spl_autoload_register();
 $template = new \Core\Template();
 $dbInfo = parse_ini_file("Config/db.ini");
 $pdo = new PDO($dbInfo['dsn'], $dbInfo['user'], $dbInfo['pass']);
-$db = new \Database\PDODatabase($pdo);
+$db = new \DB\PDODatabase($pdo);
 $dataBinder = new \Core\DataBinder();
 $userRepository = new \App\Repository\UserRepository($db);
 $userService = new \App\Service\UserService($userRepository);

@@ -15,11 +15,4 @@ interface UserRepositoryInterface
 	public function findOneByEmail(string $email) : ?UserDTO;
 
 	public function findOne(int $id): ?UserDTO;
-
-	public function setDebit(UserDTO $userDTO) : bool;
-
-	/**
-	 * @return \Generator
-	 */
-	public function findAll() : \Generator;
 }

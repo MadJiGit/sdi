@@ -25,7 +25,10 @@ class UserService implements UserServiceInterface
 	public function register(UserDTO $userDTO, string $confirmPassword): bool
 	{
 
-		var_dump("register " . $userDTO);
+		var_dump("register username " . $userDTO->getUsername() . "\n");
+		var_dump("register password " . $userDTO->getPassword() . "\n");
+		var_dump("register email" . $userDTO->getEmail() . "\n");
+		var_dump("register egn" . $userDTO->getEGN() . "\n");
 
 		if($userDTO->getPassword() !== $confirmPassword) {
 			throw new \Exception("Passwords mismatch!");
@@ -135,7 +138,6 @@ class UserService implements UserServiceInterface
 
 		$this->encryptPassword($userDTO);
 
-		//TODO not insert but update or smth with ID may be
 		return $this->userRepository->insert($userDTO);
 	}
 

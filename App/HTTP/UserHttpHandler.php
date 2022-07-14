@@ -96,7 +96,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	private function handlerRegisterProcess(array $formData): void
 	{
-		var_dump("handlerRegisterProcess " . $formData);
+		var_dump("handlerRegisterProcess " . $formData . "\n");
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
 			$this->userService->register($user, $formData['confirm_password']);

@@ -24,7 +24,7 @@ class UserRepository implements UserRepositoryInterface
 
 	public function insert(UserDTO $userDTO): bool
 	{
-		var_dump("insert " . $userDTO);
+		var_dump("insert " . $userDTO->getUsername() . "\n");
 		$this->db->query("
 			INSERT INTO users(username, password, email, egn)
 			VALUES (?,?,?, ?)
@@ -53,16 +53,35 @@ class UserRepository implements UserRepositoryInterface
 
 	public function findOneByUsername(string $username): ?UserDTO
 	{
-		// TODO: Implement findOneByUsername() method.
+		return $this->db->query("
+            SELECT id, username, password, email 
+            FROM users
+            WHERE username = ?
+        ")->execute([$username])
+			->fetch(UserDTO::class)
+			->current();
 	}
 
 	public function findOneByEmail(string $email): ?UserDTO
 	{
-		// TODO: Implement findOneByEmail() method.
+		return $this->db->query("
+            SELECT id, username, password, email 
+            FROM users
+            WHERE email = ?
+        ")->execute([$email])
+			->fetch(UserDTO::class)
+			->current();
 	}
 
 	public function findOne(int $id): ?UserDTO
 	{
-		// TODO: Implement findOne() method.
+		return $this->db->query("
+            SELECT id, username, password, email 
+            FROM users
+            WHERE id = ?
+        ")->execute([$id])
+			->fetch(UserDTO::class)
+			->current();
 	}
+
 }

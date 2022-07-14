@@ -5,7 +5,7 @@ namespace Core;
 class Template implements TemplateInterface
 {
 
-	const TEMPLATE_FOLDER = "app/Templates";
+	const TEMPLATE_FOLDER = "app/Templates/";
 	const TEMPLATE_EXTENSION = ".php";
 
 	public function render(string $templateName, $data, array $errors = [])
