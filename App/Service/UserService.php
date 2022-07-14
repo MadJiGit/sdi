@@ -55,6 +55,9 @@ class UserService implements UserServiceInterface
 	 */
 	public function login(string $data, string $password): ?UserDTO
 	{
+		var_dump("login username " . $data . "\n");
+		var_dump("login password " . $password . "\n");
+
 		$user = $this->userRepository->findOneUserByData($data);
 
 		if(null == $user){
@@ -66,6 +69,8 @@ class UserService implements UserServiceInterface
 		if(false === password_verify($password, $userPasswordHash)){
 			throw new \Exception("Invalid password!");
 		}
+
+		var_dump("may be login successful\n");
 
 		return $user;
 

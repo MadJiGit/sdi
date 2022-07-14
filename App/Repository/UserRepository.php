@@ -42,9 +42,13 @@ class UserRepository implements UserRepositoryInterface
 	{
 		$user = null;
 
+		var_dump("findOneUserByData " . $data . "\n");
+
 		if(str_contains($data, '@')) {
+			var_dump("findOneByEmail start\n");
 			$user = $this->findOneByEmail($data);
 		} else {
+			var_dump("findOneByUsername start\n");
 			$user = $this->findOneByUsername($data);
 		}
 
@@ -53,8 +57,10 @@ class UserRepository implements UserRepositoryInterface
 
 	public function findOneByUsername(string $username): ?UserDTO
 	{
+		var_dump("findOneByUsername start\n");
+
 		return $this->db->query("
-            SELECT id, username, password, email 
+            SELECT id, username, password, email, egn 
             FROM users
             WHERE username = ?
         ")->execute([$username])
@@ -64,8 +70,10 @@ class UserRepository implements UserRepositoryInterface
 
 	public function findOneByEmail(string $email): ?UserDTO
 	{
+		var_dump("findOneByEmail start\n");
+
 		return $this->db->query("
-            SELECT id, username, password, email 
+            SELECT id, username, password, email, egn 
             FROM users
             WHERE email = ?
         ")->execute([$email])
@@ -76,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
 	public function findOne(int $id): ?UserDTO
 	{
 		return $this->db->query("
-            SELECT id, username, password, email 
+            SELECT id, username, password, email, egn 
             FROM users
             WHERE id = ?
         ")->execute([$id])

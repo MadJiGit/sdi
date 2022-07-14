@@ -113,12 +113,16 @@ class UserHttpHandler extends HttpHandlerAbstract
 	private function handlerLoginProcess(array $formData): void
 	{
 		try {
-			$currentUser = $this->userService->login($formData['username'], $formData['password']);
+			$currentUser = $this->userService->login($formData['data'], $formData['password']);
+
+			var_dump("current user" . $currentUser->getUsername() ."\n");
 			$_SESSION['id'] = $currentUser->getId();
+			var_dump("before redirect\n");
 			$this->redirect("profile.php");
 		} catch (Exception $ex) {
 			//$this->render("users/login", null, [$ex->getMessage()]);
 			//$this->render("static/pages-sign-in.html", null, [$ex->getMessage()]);
+			var_dump("error " . [$ex->getMessage()]);
 			$this->render("users/login", null, [$ex->getMessage()]);
 		}
 	}
