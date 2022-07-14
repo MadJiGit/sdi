@@ -24,6 +24,7 @@ class UserRepository implements UserRepositoryInterface
 
 	public function insert(UserDTO $userDTO): bool
 	{
+		var_dump("insert " . $userDTO);
 		$this->db->query("
 			INSERT INTO users(username, password, email, egn)
 			VALUES (?,?,?, ?)
@@ -63,18 +64,5 @@ class UserRepository implements UserRepositoryInterface
 	public function findOne(int $id): ?UserDTO
 	{
 		// TODO: Implement findOne() method.
-	}
-
-	public function setDebit(UserDTO $userDTO): bool
-	{
-		// TODO: Implement setDebit() method.
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function findAll(): \Generator
-	{
-		// TODO: Implement findAll() method.
 	}
 }

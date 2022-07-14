@@ -24,6 +24,9 @@ class UserService implements UserServiceInterface
 
 	public function register(UserDTO $userDTO, string $confirmPassword): bool
 	{
+
+		var_dump("register " . $userDTO);
+
 		if($userDTO->getPassword() !== $confirmPassword) {
 			throw new \Exception("Passwords mismatch!");
 		}
@@ -68,6 +71,8 @@ class UserService implements UserServiceInterface
 	public function resetPassword(string $email, string $username, string $confirmPassword): bool
 	{
 		// TODO: Implement resetPassword() method.
+
+		return 0;
 	}
 
 	public function currentUser(): ?UserDTO

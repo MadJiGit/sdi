@@ -23,7 +23,7 @@ abstract class HttpHandlerAbstract
 		$this->dataBinder = $dataBinder;
 	}
 
-	public function render(string $templateName, $data = null,array $errors=[]){
+	public function render(string $templateName, $data = null, array $errors=[]){
 		$this->template->render($templateName, $data,$errors);
 	}
 

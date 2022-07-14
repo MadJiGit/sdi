@@ -7,7 +7,6 @@ use App\Service\UserServiceInterface;
 use Core\DataBinderInterface;
 use Core\TemplateInterface;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class UserHttpHandler extends HttpHandlerAbstract
 {
@@ -40,7 +39,9 @@ class UserHttpHandler extends HttpHandlerAbstract
 
 	public function index()
 	{
-		$this->render("static/pages-sign-in.html");
+		//$this->render("static/pages-sign-in.html");
+		//$this->render("static/pages-sign-in.html");
+		$this->render("users/login");
 	}
 
 	public function login(array $formData = [])
@@ -48,34 +49,45 @@ class UserHttpHandler extends HttpHandlerAbstract
 		if(isset($formData['login'])){
 			$this->handlerLoginProcess($formData);
 		} else {
-			$this->render("static/pages-sign-in.html");
+			//$this->render("static/pages-sign-in.html");
+			$this->render("users/login");
 		}
 	}
 
 	public function registerUser(array $formData = [])
 	{
+		var_dump("registerUser " . $formData);
 		if (isset($formData['register'])) {
 			$this->handlerRegisterProcess($formData);
 		} else {
-			$this->render("static/pages-sign-up.html");
+			//$this->render("static/pages-sign-up.html");
+			$this->render("users/register");
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function forgetPassword(array $formData = [])
 	{
 		if (isset($formData['forget_password'])) {
 			$this->handlerResetPasswordProcess($formData);
 		} else {
-			$this->render("static/pages-reset-password.html");
+			//$this->render("static/pages-reset-password.html");
+			$this->render("users/forget_pass");
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function resetPassword(array $formData = [])
 	{
 		if (isset($formData['reset_password'])) {
 			$this->handlerResetPasswordProcess($formData);
 		} else {
-			$this->render("static/pages-new-password.html");
+			//$this->render("static/pages-new-password.html");
+			$this->render("users/reset_pass");
 		}
 	}
 
@@ -84,6 +96,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	private function handlerRegisterProcess(array $formData): void
 	{
+		var_dump("handlerRegisterProcess " . $formData);
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
 			$this->userService->register($user, $formData['confirm_password']);
@@ -92,7 +105,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
 			//$this->render("users/register", $formData, [$ex->getMessage()]);
-			$this->render("static/pages-sign-up.html", $formData, [$ex->getMessage()]);
+			//$this->render("static/pages-sign-up.html", $formData, [$ex->getMessage()]);
+			$this->render("users/register", $formData, [$ex->getMessage()]);
 		}
 	}
 
@@ -104,7 +118,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$this->redirect("profile.php");
 		} catch (Exception $ex) {
 			//$this->render("users/login", null, [$ex->getMessage()]);
-			$this->render("static/pages-sign-in.html", null, [$ex->getMessage()]);
+			//$this->render("static/pages-sign-in.html", null, [$ex->getMessage()]);
+			$this->render("users/login", null, [$ex->getMessage()]);
 		}
 	}
 
@@ -128,7 +143,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$this->userService->update($user, $formData['confirm_password']);
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
-			$this->render("static/pages-new-password.html", $formData, [$ex->getMessage()]);
+			//$this->render("static/pages-new-password.html", $formData, [$ex->getMessage()]);
+			$this->render("users/reset_pass", $formData, [$ex->getMessage()]);
 		}
 	}
 }

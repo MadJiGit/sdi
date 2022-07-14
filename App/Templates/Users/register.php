@@ -1,9 +1,5 @@
 <?php /** @var \App\Data\UserDTO|null $data */ ?>
 
-<?php /** @var array $errors|null */
-foreach ($errors as $error): ?>
-	<p style="color: red"><?= $error ?></p>
-<?php endforeach; ?>
 <script src="https://kit.fontawesome.com/45a931535c.js" crossorigin="anonymous"></script>
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -13,7 +9,7 @@ foreach ($errors as $error): ?>
 	<form method="POST">
 		<div>
 			<label>
-				Username: <input class="form-control"  placeholder="Username" type="text" name="username" value="<?= $data != null ? $data['username'] : "" ?>">
+				Username: <input class="form-control"  placeholder="Username" type="text" name="username" value="">
 			</label>
 		</div>
 
@@ -31,19 +27,19 @@ foreach ($errors as $error): ?>
 
 		<div>
 			<label>
-				Email: <input type="text" class="form-control"  placeholder="Email" name="email" value="<?= $data != null ? $data['email'] : "" ?>">
+				Email: <input type="text" class="form-control"  placeholder="Email" name="email" value="">
 			</label>
 		</div>
 
 		<div>
 			<label>
-				EGN: <input type="text" class="form-control"  placeholder="EGN" name="egn" value="<?= $data != null ? $data['egn'] : "" ?>">
+				EGN: <input type="text" class="form-control"  placeholder="EGN" name="egn" value="">
 			</label>
 		</div>
 		<span>
         <input type="submit" class="btn btn-primary" name="register" value="Register">
     </span>
 		<span>
-            <a class="btn btn-success" href="login.php" role="button">Log In</a>
+            <a class="btn btn-success" href="login.php" role="button">Sign In</a>
     </span>
 	</form>
