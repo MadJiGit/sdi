@@ -70,7 +70,7 @@ class UserDTO
 		var_dump("setUsername\n");
 		if (strlen($username) < self::USERNAME_MIN_LENGTH || strlen($username) > self::MAX_FIELD_LENGTH) {
 			throw new Exception("Username must be between " . self::USERNAME_MIN_LENGTH .
-										" and " . self::MAX_FIELD_LENGTH);
+				" and " . self::MAX_FIELD_LENGTH);
 		}
 		$this->username = $username;
 	}
@@ -129,7 +129,7 @@ class UserDTO
 		var_dump("egn " . $egn . "\n");
 		var_dump("setEGN " . $egn_length . "\n");
 
-		if($egn_length != self::EGN_LENGTH){
+		if ($egn_length != self::EGN_LENGTH) {
 			throw new Exception("The EGN is no valid. Must contain exact 10 numbers!");
 		}
 

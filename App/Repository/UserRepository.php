@@ -25,7 +25,7 @@ class UserRepository implements UserRepositoryInterface
 	{
 		var_dump("update username " . $userDTO->getUsername() . "\n");
 		$newPass = $userDTO->getPassword();
-		$currrentEmail= $userDTO->getEmail();
+		$currrentEmail = $userDTO->getEmail();
 		var_dump("update new pass " . $newPass . "\n");
 		$this->db->query("
 			UPDATE users SET 
@@ -62,7 +62,7 @@ class UserRepository implements UserRepositoryInterface
 
 		var_dump("findOneUserByData " . $data . "\n");
 
-		if(str_contains($data, '@')) {
+		if (str_contains($data, '@')) {
 			var_dump("findOneByEmail start\n");
 			$user = $this->findOneByEmail($data);
 		} else {

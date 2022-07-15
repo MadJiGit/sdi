@@ -23,11 +23,13 @@ abstract class HttpHandlerAbstract
 		$this->dataBinder = $dataBinder;
 	}
 
-	public function render(string $templateName, $data = null, array $errors=[]){
-		$this->template->render($templateName, $data,$errors);
+	public function render(string $templateName, $data = null, array $errors = [])
+	{
+		$this->template->render($templateName, $data, $errors);
 	}
 
-	public function redirect(string $url){
+	public function redirect(string $url)
+	{
 		header("Location: $url");
 	}
 

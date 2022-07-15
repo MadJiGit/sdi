@@ -35,8 +35,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$this->redirect("login.php");
 		}
 
-		$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nYou are successfully login.";
-		$this->render("home/profile", $currentUser);
+		$_SESSION['success'] = "Congratulations " . $currentUser->getUsername() . ".\nYou are successfully login.";
+		$this->render("users/profile", $currentUser);
 	}
 
 	public function index()
@@ -48,7 +48,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 
 	public function login(array $formData = [])
 	{
-		if(isset($formData['login'])){
+		if (isset($formData['login'])) {
 			$this->handlerLoginProcess($formData);
 		} else {
 			//$this->render("static/pages-sign-in.html");
@@ -116,6 +116,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$this->render("users/reset_pass", $formData, [$ex->getMessage()]);
 		}
 	}
+
 	/**
 	 * @param array $formData
 	 */
@@ -137,19 +138,32 @@ class UserHttpHandler extends HttpHandlerAbstract
 
 	private function handlerLoginProcess(array $formData): void
 	{
+		$res = (isset($formData['remember']) && $formData['remember'] === 'on') ? "true" : "false";
+		var_dump("checkbox " . $res);
 		try {
 			$currentUser = $this->userService->login($formData['data'], $formData['password']);
-
-			var_dump("current user" . $currentUser->getUsername() ."\n");
+			var_dump("current user" . $currentUser->getUsername() . "\n");
 			$_SESSION['id'] = $currentUser->getId();
 			var_dump("before redirect\n");
 			$this->redirect("profile.php");
 		} catch (Exception $ex) {
 			//$this->render("users/login", null, [$ex->getMessage()]);
 			//$this->render("static/pages-sign-in.html", null, [$ex->getMessage()]);
-			var_dump("error " . [$ex->getMessage()]);
 			$this->render("users/login", null, [$ex->getMessage()]);
 		}
+	}
+
+	public function logout($formData) : void
+	{
+//		try {
+//			$_SESSION['username'] = $formData['username'];
+//			$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nYou logout";
+//			$this->redirect("login.php");
+//		} catch (Exception $ex) {
+//			//$this->render("users/register", $formData, [$ex->getMessage()]);
+//			//$this->render("static/pages-sign-up.html", $formData, [$ex->getMessage()]);
+		$this->render("users/logout", $formData);
+//		}
 	}
 
 

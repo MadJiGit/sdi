@@ -1,26 +1,28 @@
 <?php include('header.php'); ?>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+<title>Sign In</title>
 <h1 class="d-flex justify-content-center">Login</h1>
 <div class="form-group d-flex justify-content-center">
     <form method="POST">
         <div>
             <label>
-                Username/Email: <input  class="form-control"  placeholder="Username/Email" type="text" name="data">
+                Username/Email: <input class="form-control" placeholder="Username/Email" type="text" name="data">
             </label>
         </div>
 
         <div>
             <label>
-                Password: <input type="password" class="form-control" placeholder="Password" value="" name="password">
+                Password: <input class="form-control" placeholder="Password" type="password" name="password">
             </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="remember"> Запомни ме
+            </label>
+
         </div>
 
         <span>
-                <input type="submit" class="btn btn-primary" name="login" value="Sing In">
+                <input type="submit" class="btn btn-primary" name="login" value="Sign In">
         </span>
         <span>
             <a class="btn btn-success" href="register.php" role="button">Register</a>

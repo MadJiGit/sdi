@@ -27,15 +27,15 @@ class UserService implements UserServiceInterface
 
 		var_dump("register username " . $userDTO->getUsername() . "\n");
 
-		if($userDTO->getPassword() !== $confirmPassword) {
+		if ($userDTO->getPassword() !== $confirmPassword) {
 			throw new \Exception("Passwords mismatch!");
 		}
 
-		if(null !== $this->userRepository->findOneByUsername($userDTO->getUsername())){
+		if (null !== $this->userRepository->findOneByUsername($userDTO->getUsername())) {
 			throw new \Exception("Username already taken!");
 		}
 
-		if(null !== $this->userRepository->findOneByEmail($userDTO->getEmail())){
+		if (null !== $this->userRepository->findOneByEmail($userDTO->getEmail())) {
 			throw new \Exception("User with this email already exist!");
 		}
 
@@ -57,13 +57,13 @@ class UserService implements UserServiceInterface
 
 		$user = $this->userRepository->findOneUserByData($data);
 
-		if(null == $user){
+		if (null == $user) {
 			throw new \Exception("User not exist! You might want to register first\nOr if you have registration can try to recover your password.");
 		}
 
 		$userPasswordHash = $user->getPassword();
 
-		if(false === password_verify($password, $userPasswordHash)){
+		if (false === password_verify($password, $userPasswordHash)) {
 			throw new \Exception("Invalid password!");
 		}
 
@@ -82,7 +82,7 @@ class UserService implements UserServiceInterface
 
 	public function currentUser(): ?UserDTO
 	{
-		if(!isset($_SESSION['id'])) {
+		if (!isset($_SESSION['id'])) {
 			return null;
 		}
 		return $this->userRepository->findOne($_SESSION['id']);
@@ -103,7 +103,7 @@ class UserService implements UserServiceInterface
 
 	public function isLogged(): bool
 	{
-		if($this->currentUser() === null){
+		if ($this->currentUser() === null) {
 			return false;
 		}
 		return true;
@@ -128,15 +128,15 @@ class UserService implements UserServiceInterface
 		var_dump("update\n");
 		//var_dump($userDTO['username']. "\n");
 		$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
-		if(null === $user){
+		if (null === $user) {
 			throw new \Exception("Email do not exist!");
 		}
 
-		if($userDTO->getUsername() !== $user->getUsername()){
+		if ($userDTO->getUsername() !== $user->getUsername()) {
 			throw new \Exception("Username is not correct!");
 		}
 
-		if($userDTO->getPassword() !== $confirm_password) {
+		if ($userDTO->getPassword() !== $confirm_password) {
 			throw new \Exception("Passwords mismatch!");
 		}
 
