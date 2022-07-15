@@ -38,6 +38,27 @@ class UserDTO
 	private string $egn;
 
 	/**
+	 * @var bool
+	 */
+	private bool $isChek;
+
+	/**
+	 * @return bool
+	 */
+	public function getIsChek(): bool
+	{
+		return $this->isChek;
+	}
+
+	/**
+	 * @param bool $chek
+	 */
+	public function setIsChek(bool $chek)
+	{
+		$this->isChek = $chek;
+	}
+
+	/**
 	 * @return int
 	 */
 	public function getId(): int

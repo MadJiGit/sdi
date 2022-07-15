@@ -52,9 +52,6 @@ class UserService implements UserServiceInterface
 	 */
 	public function login(string $data, string $password): ?UserDTO
 	{
-		var_dump("login username " . $data . "\n");
-		var_dump("login password " . $password . "\n");
-
 		$user = $this->userRepository->findOneUserByData($data);
 
 		if (null == $user) {
@@ -67,17 +64,52 @@ class UserService implements UserServiceInterface
 			throw new \Exception("Invalid password!");
 		}
 
-		var_dump("may be login successful\n");
-
 		return $user;
 
 	}
 
-	public function resetPassword(string $email, string $username, string $confirmPassword): bool
+	/**
+	 * @param string $email
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function forgetPassword(string $email): bool
 	{
-		var_dump("resetPassword\n");
+		if(empty($email)){
+			throw new \Exception("Email do not exist!");
+		}
+		$user = $this->userRepository->findOneByEmail($email);
+		if (null === $user) {
+			throw new \Exception("Email do not exist!");
+		}
 
-		return 0;
+		return true;
+	}
+
+	/**
+	 * @param UserDTO $userDTO
+	 * @param string $confirmPassword
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function resetPassword(UserDTO $userDTO, string $confirmPassword): bool
+	{
+		$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
+		if (null === $user) {
+			throw new \Exception("Email do not exist!");
+		}
+
+		if ($userDTO->getUsername() !== $user->getUsername()) {
+			throw new \Exception("Username is not correct!");
+		}
+
+		if ($userDTO->getPassword() !== $confirmPassword) {
+			throw new \Exception("Passwords mismatch!");
+		}
+
+		$this->encryptPassword($userDTO);
+
+		return $this->userRepository->edit($userDTO);
 	}
 
 	public function currentUser(): ?UserDTO
@@ -91,14 +123,6 @@ class UserService implements UserServiceInterface
 	public function getById(int $id): ?UserDTO
 	{
 		return $this->userRepository->findOne($id);
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function all(): \Generator
-	{
-		return $this->userRepository->findAll();
 	}
 
 	public function isLogged(): bool
@@ -119,31 +143,4 @@ class UserService implements UserServiceInterface
 		$passwordHash = password_hash($plainPassword, PASSWORD_DEFAULT);
 		$userDTO->setPassword($passwordHash);
 	}
-
-	/**
-	 * @throws \Exception
-	 */
-	public function update(UserDTO $userDTO, mixed $confirm_password): bool
-	{
-		var_dump("update\n");
-		//var_dump($userDTO['username']. "\n");
-		$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
-		if (null === $user) {
-			throw new \Exception("Email do not exist!");
-		}
-
-		if ($userDTO->getUsername() !== $user->getUsername()) {
-			throw new \Exception("Username is not correct!");
-		}
-
-		if ($userDTO->getPassword() !== $confirm_password) {
-			throw new \Exception("Passwords mismatch!");
-		}
-
-		$this->encryptPassword($userDTO);
-
-		return $this->userRepository->edit($userDTO);
-	}
-
-
 }

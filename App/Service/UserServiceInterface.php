@@ -12,19 +12,13 @@ interface UserServiceInterface
 
 	public function login(string $data, string $password): ?UserDTO;
 
-	public function resetPassword(string $email, string $username, string $confirmPassword): bool;
+	public function resetPassword(UserDTO $UserDTO, string $confirmPassword): bool;
+
+	public function forgetPassword(string $email): bool;
 
 	public function getById(int $id): ?UserDTO;
 
 	public function currentUser(): ?UserDTO;
 
-	/**
-	 * @return \Generator|UserDTO[]
-	 */
-	public function all(): \Generator;
-
 	public function isLogged(): bool;
-
-	public function update(UserDTO $userDTO, mixed $confirm_password): bool;
-
 }
