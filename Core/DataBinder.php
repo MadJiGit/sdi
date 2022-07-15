@@ -7,6 +7,7 @@ class DataBinder implements DataBinderInterface
 
 	public function bind(array $from, $className)
 	{
+		var_dump("data_binder\n");
 		$object = new $className;
 		foreach ($from as $key => $value) {
 			$methodName = 'set' . implode("",

@@ -1,4 +1,4 @@
-<?php /** @var \App\Data\UserDTO|null $data */ ?>
+<?php include('header.php'); ?>
 
 <script src="https://kit.fontawesome.com/45a931535c.js" crossorigin="anonymous"></script>
 

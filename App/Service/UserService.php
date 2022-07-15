@@ -26,9 +26,6 @@ class UserService implements UserServiceInterface
 	{
 
 		var_dump("register username " . $userDTO->getUsername() . "\n");
-		var_dump("register password " . $userDTO->getPassword() . "\n");
-		var_dump("register email" . $userDTO->getEmail() . "\n");
-		var_dump("register egn" . $userDTO->getEGN() . "\n");
 
 		if($userDTO->getPassword() !== $confirmPassword) {
 			throw new \Exception("Passwords mismatch!");

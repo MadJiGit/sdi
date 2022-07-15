@@ -31,9 +31,11 @@ class UserHttpHandler extends HttpHandlerAbstract
 		$currentUser = $this->userService->currentUser();
 
 		if (null == $currentUser) {
+			$_SESSION['warning'] = "You can't change password!\n";
 			$this->redirect("login.php");
 		}
 
+		$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nYou are successfully login.";
 		$this->render("home/profile", $currentUser);
 	}
 
@@ -107,6 +109,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
 			$this->userService->update($user, $formData['confirm_password']);
+			$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nYou are successfully change your password.\n Please login.";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
 			//$this->render("static/pages-new-password.html", $formData, [$ex->getMessage()]);
@@ -123,7 +126,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
 			$this->userService->register($user, $formData['confirm_password']);
 			$_SESSION['username'] = $formData['username'];
-			$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ". Login to our platform";
+			$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nPlease login to our platform";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
 			//$this->render("users/register", $formData, [$ex->getMessage()]);

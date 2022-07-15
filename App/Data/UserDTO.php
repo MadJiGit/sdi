@@ -33,9 +33,9 @@ class UserDTO
 	private string $email;
 
 	/**
-	 * @var integer
+	 * @var string
 	 */
-	private int $egn;
+	private string $egn;
 
 	/**
 	 * @return int
@@ -67,6 +67,7 @@ class UserDTO
 	 */
 	public function setUsername(string $username): void
 	{
+		var_dump("setUsername\n");
 		if (strlen($username) < self::USERNAME_MIN_LENGTH || strlen($username) > self::MAX_FIELD_LENGTH) {
 			throw new Exception("Username must be between " . self::USERNAME_MIN_LENGTH .
 										" and " . self::MAX_FIELD_LENGTH);
@@ -88,6 +89,8 @@ class UserDTO
 	 */
 	public function setPassword(string $password): void
 	{
+		var_dump("setPassword\n");
+
 		if (strlen($password) < self::PASSWORD_MIN_LENGTH || strlen($password) > self::MAX_FIELD_LENGTH) {
 			throw new Exception('Password must be between ' . self::PASSWORD_MIN_LENGTH . ' and ' . self::MAX_FIELD_LENGTH);
 		}
@@ -108,6 +111,8 @@ class UserDTO
 	 */
 	public function setEmail(string $email): void
 	{
+		var_dump("setEmail\n");
+
 		if (strlen($email) < self::PASSWORD_MIN_LENGTH || strlen($email) > self::MAX_FIELD_LENGTH) {
 			throw new Exception('Email must be between ' . self::EMAIL_MIN_LENGTH . ' and ' . self::MAX_FIELD_LENGTH);
 		}
@@ -115,12 +120,14 @@ class UserDTO
 	}
 
 	/**
-	 * @param int $egn
+	 * @param string $egn
 	 * @throws Exception
 	 */
-	public function setEgn(int $egn): void
+	public function setEgn(string $egn): void
 	{
-		$egn_length = strlen((string)$egn);
+		$egn_length = strlen($egn);
+		var_dump("egn " . $egn . "\n");
+		var_dump("setEGN " . $egn_length . "\n");
 
 		if($egn_length != self::EGN_LENGTH){
 			throw new Exception("The EGN is no valid. Must contain exact 10 numbers!");
@@ -133,7 +140,7 @@ class UserDTO
 	/**
 	 * @return integer
 	 */
-	public function getEGN(): int
+	public function getEGN(): string
 	{
 		return $this->egn;
 	}
