@@ -67,17 +67,12 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	public function forgetPassword(array $formData = [])
 	{
-//		try {
-//			$this->userService->forgetPassword($formData['email']);
-//			$this->redirect("reset_pass.php");
-//		} catch (Exception $ex){
-//			$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
-//		}
 		if (isset($formData['forget_pass'])) {
 			var_dump("forgetPassword 2 " . $formData['email'] . "\n");
 
 			try {
 				$this->userService->forgetPassword($formData['email']);
+				$_SESSION['email'] = $formData['email'];
 				$this->redirect("reset_pass.php");
 			} catch (Exception $ex){
 				$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
@@ -103,7 +98,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	public function resetPassword(array $formData = [])
 	{
-		var_dump("resetPassword(array $formData = [])");
+		var_dump("resetPassword(array formData = [])");
 		if (isset($formData['reset_pass'])) {
 			$this->handlerResetPasswordProcess($formData);
 		} else {
@@ -128,6 +123,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
+			var_dump("SESSION[email]" . $_SESSION['email'] . "\n");
+			$user->setEmail($_SESSION['email']);
 			$this->userService->resetPassword($user, $formData['confirm_password']);
 			$_SESSION['success'] = "Congratulations " . $user->getUsername() . ".\nYou are successfully change your password.\n Please login.";
 			$this->redirect("login.php");

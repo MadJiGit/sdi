@@ -107,6 +107,7 @@ class UserService implements UserServiceInterface
 			throw new \Exception("Passwords mismatch!");
 		}
 
+		$user->setPassword($userDTO->getPassword());
 		$this->encryptPassword($userDTO);
 
 		return $this->userRepository->edit($userDTO);
