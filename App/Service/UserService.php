@@ -123,26 +123,27 @@ class UserService implements UserServiceInterface
 	/**
 	 * @throws \Exception
 	 */
-	public function update(UserDTO $userDTO, mixed $confirm_password): bool
+	public function update(string $data, mixed $password, mixed $confirm_password): bool
 	{
 		var_dump("update\n");
 		//var_dump($userDTO['username']. "\n");
-		$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
+		//$user = $this->userRepository->findOneByEmail($userDTO->getEmail());
+		$user = $this->userRepository->findOneUserByData($data);
+
+		if($password !== $confirm_password) {
+			throw new \Exception("Passwords mismatch!");
+		}
+
+		var_dump("update user " .$user->getUsername() . "\n");
 		if(null === $user){
 			throw new \Exception("Email do not exist!");
 		}
 
-		if($userDTO->getUsername() !== $user->getUsername()){
-			throw new \Exception("Username is not correct!");
-		}
+		$user->setPassword($password);
 
-		if($userDTO->getPassword() !== $confirm_password) {
-			throw new \Exception("Passwords mismatch!");
-		}
+		$this->encryptPassword($user);
 
-		$this->encryptPassword($userDTO);
-
-		return $this->userRepository->edit($userDTO);
+		return $this->userRepository->edit($user);
 	}
 
 

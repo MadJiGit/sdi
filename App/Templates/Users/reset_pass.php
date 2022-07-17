@@ -8,7 +8,7 @@
 	<form method="POST">
 		<div>
 			<label>
-				Username: <input class="form-control"  placeholder="Username" type="text" name="username">
+				Username: <input class="form-control"  placeholder="Username/Email" type="text" name="data">
 			</label>
         </div>
 		<div>

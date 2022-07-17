@@ -25,6 +25,6 @@ interface UserServiceInterface
 
 	public function isLogged() : bool;
 
-	public function update(UserDTO $userDTO, mixed $confirm_password) : bool;
+	public function update(string $data,  mixed $password, mixed $confirm_password) : bool;
 
 }

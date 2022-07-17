@@ -103,12 +103,11 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	private function handlerResetPasswordProcess(array $formData)
 	{
-		var_dump("handlerResetPasswordProcess " . $formData['username'] . "\n");
-		$formData['email'] = $this->userService->currentUser()->getEmail();
+		var_dump("handlerResetPasswordProcess " . $formData['data']  ."\n");
 
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
-			$this->userService->update($user, $formData['confirm_password']);
+			$this->userService->update($formData['data'], $formData['password'], $formData['confirm_password']);
 			$_SESSION['success'] = "Congratulations " . $_SESSION['username'] . ".\nYou are successfully change your password.\n Please login.";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
