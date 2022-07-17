@@ -69,8 +69,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 	{
 		if (isset($formData['forget_pass'])) {
 			try {
-				$this->userService->forgetPassword($formData['email']);
-				$_SESSION['email'] = $formData['email'];
+				$this->userService->forgetPassword(trim($formData['email']));
+				$_SESSION['email'] = trim($formData['email']);
 				$this->redirect("reset_pass.php");
 			} catch (Exception $ex) {
 				$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
@@ -99,8 +99,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 	{
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
-			$user->setEmail($_SESSION['email']);
-			$this->userService->resetPassword($user, $formData['confirm_password']);
+			$user->setEmail(trim($_SESSION['email']));
+			$this->userService->resetPassword($user, trim($formData['confirm_password']));
 			$_SESSION['success'] = "Congratulations " . $user->getUsername() . ".\nYou are successfully change your password.\n Please login.";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
@@ -115,7 +115,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 	{
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
-			$this->userService->register($user, $formData['confirm_password']);
+			$this->userService->register($user, trim($formData['confirm_password']));
 			$_SESSION['success'] = "Congratulations " . $user->getUsername() . ".\nPlease login to our platform";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
@@ -127,7 +127,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 	{
 		$res = (isset($formData['remember']) && $formData['remember'] === 'on') ? "true" : "false";
 		try {
-			$currentUser = $this->userService->login($formData['data'], $formData['password']);
+			$currentUser = $this->userService->login(trim($formData['data']), trim($formData['password']));
 			$currentUser->setIsChek($res);
 			$_SESSION['id'] = $currentUser->getId();
 			$this->redirect("profile.php");

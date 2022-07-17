@@ -96,15 +96,15 @@ class UserService implements UserServiceInterface
 			throw new \Exception("Email do not exist!");
 		}
 
-		if ($userDTO->getUsername() !== $user->getUsername()) {
+		if (trim($userDTO->getUsername()) !== $user->getUsername()) {
 			throw new \Exception("Username is not correct!");
 		}
 
-		if ($userDTO->getPassword() !== $confirmPassword) {
+		if (trim($userDTO->getPassword()) !== trim($confirmPassword)) {
 			throw new \Exception("Passwords mismatch!");
 		}
 
-		$user->setPassword($userDTO->getPassword());
+		$user->setPassword(trim($userDTO->getPassword()));
 		$this->encryptPassword($userDTO);
 
 		return $this->userRepository->edit($userDTO);
