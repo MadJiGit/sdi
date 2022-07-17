@@ -68,29 +68,16 @@ class UserHttpHandler extends HttpHandlerAbstract
 	public function forgetPassword(array $formData = [])
 	{
 		if (isset($formData['forget_pass'])) {
-			var_dump("forgetPassword 2 " . $formData['email'] . "\n");
-
 			try {
 				$this->userService->forgetPassword($formData['email']);
 				$_SESSION['email'] = $formData['email'];
 				$this->redirect("reset_pass.php");
-			} catch (Exception $ex){
+			} catch (Exception $ex) {
 				$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
 			}
-
-			//$this->redirect("reset_pass.php");
 		} else {
 			$this->render("users/forget_pass");
 		}
-
-//		try {
-//			if (!isset($formData['email']) || null === $formData['email'] = $this->userService->currentUser()->getEmail()) {
-//				throw new Exception("mail is nor correct");
-//			}
-//			$this->redirect("reset_pass.php");
-//		} catch (Exception $ex) {
-//			$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
-//		}
 	}
 
 	/**
@@ -98,7 +85,6 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	public function resetPassword(array $formData = [])
 	{
-		var_dump("resetPassword(array formData = [])");
 		if (isset($formData['reset_pass'])) {
 			$this->handlerResetPasswordProcess($formData);
 		} else {
@@ -111,19 +97,8 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	private function handlerResetPasswordProcess(array $formData)
 	{
-		//var_dump("handlerResetPasswordProcess " . $formData['username'] . "\n");
-//		try {
-//			if (!isset($formData['email']) || null === $formData['email'] = $this->userService->currentUser()->getEmail()) {
-//				throw new Exception("mail is nor correct");
-//			}
-//		} catch (Exception $ex) {
-//			$this->render("users/forget_pass", $formData, [$ex->getMessage()]);
-//		}
-
-
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
-			var_dump("SESSION[email]" . $_SESSION['email'] . "\n");
 			$user->setEmail($_SESSION['email']);
 			$this->userService->resetPassword($user, $formData['confirm_password']);
 			$_SESSION['success'] = "Congratulations " . $user->getUsername() . ".\nYou are successfully change your password.\n Please login.";
@@ -138,11 +113,9 @@ class UserHttpHandler extends HttpHandlerAbstract
 	 */
 	private function handlerRegisterProcess(array $formData): void
 	{
-		var_dump("handlerRegisterProcess " . $formData . "\n");
 		try {
 			$user = $this->dataBinder->bind($formData, UserDTO::class);
 			$this->userService->register($user, $formData['confirm_password']);
-			//$_SESSION['username'] = $formData['username'];
 			$_SESSION['success'] = "Congratulations " . $user->getUsername() . ".\nPlease login to our platform";
 			$this->redirect("login.php");
 		} catch (Exception $ex) {
@@ -156,7 +129,6 @@ class UserHttpHandler extends HttpHandlerAbstract
 		try {
 			$currentUser = $this->userService->login($formData['data'], $formData['password']);
 			$currentUser->setIsChek($res);
-			var_dump("current user" . $currentUser->getUsername() . "\n");
 			$_SESSION['id'] = $currentUser->getId();
 			$this->redirect("profile.php");
 		} catch (Exception $ex) {

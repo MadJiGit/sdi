@@ -24,9 +24,6 @@ class UserService implements UserServiceInterface
 
 	public function register(UserDTO $userDTO, string $confirmPassword): bool
 	{
-
-		var_dump("register username " . $userDTO->getUsername() . "\n");
-
 		if ($userDTO->getPassword() !== $confirmPassword) {
 			throw new \Exception("Passwords mismatch!");
 		}
@@ -75,7 +72,7 @@ class UserService implements UserServiceInterface
 	 */
 	public function forgetPassword(string $email): bool
 	{
-		if(empty($email)){
+		if (empty($email)) {
 			throw new \Exception("Email do not exist!");
 		}
 		$user = $this->userRepository->findOneByEmail($email);
