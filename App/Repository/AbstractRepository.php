@@ -17,7 +17,7 @@ class AbstractRepository
 	 */
 	protected DataBinderInterface $dataBinder;
 
-	public function __construct(DatabaseInterface $database,
+	public function __construct(DatabaseInterface   $database,
 	                            DataBinderInterface $dataBinder)
 	{
 		$this->db = $database;
