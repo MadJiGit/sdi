@@ -44,14 +44,13 @@
     </form>
 </div>
 
-<!--<script>-->
-<!--function myFunction(a) {-->
-<!--    alert("tesstttt");-->
-<!--let p = document.getElementById(a);-->
-<!--if (p.type === "password") {-->
-<!--p.type = "text";-->
-<!--} else {-->
-<!--p.type = "password";-->
-<!--}-->
-<!--}-->
-<!--</script>-->
+<script>
+function myFunction(a) {
+    let p = document.getElementById(a);
+    if (p.type === "password") {
+    p.type = "text";
+    } else {
+    p.type = "password";
+    }
+}
+</script>
