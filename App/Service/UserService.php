@@ -36,7 +36,7 @@ class UserService implements UserServiceInterface
 			throw new \Exception("User with this email already exist!");
 		}
 
-		if (null !== $this->userRepository->findOne($userDTO->getEGN())) {
+		if (null !== $this->userRepository->findOneByEgn($userDTO->getEgn())) {
 			throw new \Exception("User with this EGN already exist!");
 		}
 
@@ -119,12 +119,12 @@ class UserService implements UserServiceInterface
 		if (!isset($_SESSION['egn'])) {
 			return null;
 		}
-		return $this->userRepository->findOne($_SESSION['egn']);
+		return $this->userRepository->findOneByEgn($_SESSION['egn']);
 	}
 
-	public function getById(int $egn): ?UserDTO
+	public function getByEGN(int $egn): ?UserDTO
 	{
-		return $this->userRepository->findOne($egn);
+		return $this->userRepository->findOneByEgn($egn);
 	}
 
 	public function isLogged(): bool

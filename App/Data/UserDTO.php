@@ -153,7 +153,7 @@ class UserDTO
 	/**
 	 * @return integer
 	 */
-	public function getEGN(): int
+	public function getEgn(): int
 	{
 		return $this->egn;
 	}

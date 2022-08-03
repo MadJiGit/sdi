@@ -11,7 +11,8 @@
 
         <div>
             <label>
-                Password: <input class="form-control" placeholder="Password" type="password" name="password">
+                Password: <input class="form-control" placeholder="Password" type="password" name="password" id="pass">
+                <input type="checkbox" onclick="myFunction('pass')">  show password
             </label>
         </div>
         <div>

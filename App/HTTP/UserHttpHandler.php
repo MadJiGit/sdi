@@ -129,7 +129,7 @@ class UserHttpHandler extends HttpHandlerAbstract
 		try {
 			$currentUser = $this->userService->login(trim($formData['data']), trim($formData['password']));
 			$currentUser->setIsChek($res);
-			$_SESSION['egn'] = $currentUser->getEGN();
+			$_SESSION['egn'] = $currentUser->getEgn();
 			$this->redirect("profile.php");
 		} catch (Exception $ex) {
 			$this->render("users/login", null, [$ex->getMessage()]);

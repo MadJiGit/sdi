@@ -16,7 +16,7 @@ interface UserServiceInterface
 
 	public function forgetPassword(string $email): bool;
 
-	public function getById(int $egn): ?UserDTO;
+	public function getByEGN(int $egn): ?UserDTO;
 
 	public function currentUser(): ?UserDTO;
 

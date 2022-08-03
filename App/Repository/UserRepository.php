@@ -47,7 +47,7 @@ class UserRepository implements UserRepositoryInterface
 			$userDTO->getUsername(),
 			$userDTO->getPassword(),
 			$userDTO->getEmail(),
-			$userDTO->getEGN(),
+			$userDTO->getEgn(),
 		]);
 
 		return true;
@@ -88,7 +88,7 @@ class UserRepository implements UserRepositoryInterface
 			->current();
 	}
 
-	public function findOne(int $egn): ?UserDTO
+	public function findOneByEgn(int $egn): ?UserDTO
 	{
 		return $this->db->query("
             SELECT username, password, email, egn 

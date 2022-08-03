@@ -11,14 +11,16 @@
 
         <div>
             <label>
-                Password: <input class="form-control" placeholder="Password" type="password" name="password">
+                Password: <input class="form-control" placeholder="Password" type="password" name="password" id="pass">
+                <input type="checkbox" onclick="myFunction('pass')">  show password
             </label>
         </div>
 
         <div>
             <label>
                 Confirm Password: <input class="form-control" placeholder="Password" type="password"
-                                         name="confirm_password">
+                                         name="confirm_password" id="conf_pass">
+                <input type="checkbox" onclick="myFunction('conf_pass')">  show confirm password
             </label>
         </div>
 
@@ -40,3 +42,16 @@
             <a class="btn btn-success" href="login.php" role="button">Sign In</a>
     </span>
     </form>
+</div>
+
+<!--<script>-->
+<!--function myFunction(a) {-->
+<!--    alert("tesstttt");-->
+<!--let p = document.getElementById(a);-->
+<!--if (p.type === "password") {-->
+<!--p.type = "text";-->
+<!--} else {-->
+<!--p.type = "password";-->
+<!--}-->
+<!--}-->
+<!--</script>-->
