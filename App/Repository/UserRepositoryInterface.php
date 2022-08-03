@@ -16,5 +16,5 @@ interface UserRepositoryInterface
 
 	public function findOneByEmail(string $email): ?UserDTO;
 
-	public function findOne(int $id): ?UserDTO;
+	public function findOne(int $egn): ?UserDTO;
 }

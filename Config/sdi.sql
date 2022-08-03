@@ -8,10 +8,9 @@ USE `sdi`;
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
     `egn` varchar(10) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`egn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;

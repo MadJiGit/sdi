@@ -69,7 +69,7 @@ class UserRepository implements UserRepositoryInterface
 	public function findOneByUsername(string $username): ?UserDTO
 	{
 		return $this->db->query("
-            SELECT id, username, password, email, egn 
+            SELECT username, password, email, egn 
             FROM users
             WHERE username = ?
         ")->execute([$username])
@@ -80,7 +80,7 @@ class UserRepository implements UserRepositoryInterface
 	public function findOneByEmail(string $email): ?UserDTO
 	{
 		return $this->db->query("
-            SELECT id, username, password, email, egn 
+            SELECT username, password, email, egn 
             FROM users
             WHERE email = ?
         ")->execute([$email])
@@ -88,13 +88,13 @@ class UserRepository implements UserRepositoryInterface
 			->current();
 	}
 
-	public function findOne(int $id): ?UserDTO
+	public function findOne(int $egn): ?UserDTO
 	{
 		return $this->db->query("
-            SELECT id, username, password, email, egn 
+            SELECT username, password, email, egn 
             FROM users
-            WHERE id = ?
-        ")->execute([$id])
+            WHERE egn = ?
+        ")->execute([$egn])
 			->fetch(UserDTO::class)
 			->current();
 	}

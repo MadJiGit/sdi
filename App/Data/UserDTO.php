@@ -33,9 +33,9 @@ class UserDTO
 	private string $email;
 
 	/**
-	 * @var string
+	 * @var int
 	 */
-	private string $egn;
+	private int $egn;
 
 	/**
 	 * @var bool
@@ -136,12 +136,12 @@ class UserDTO
 	}
 
 	/**
-	 * @param string $egn
+	 * @param int $egn
 	 * @throws Exception
 	 */
-	public function setEgn(string $egn): void
+	public function setEgn(int $egn): void
 	{
-		$egn_length = strlen($egn);
+		$egn_length = strlen((string)$egn);
 		if ($egn_length != self::EGN_LENGTH) {
 			throw new Exception("The EGN is no valid. Must contain exact 10 numbers!");
 		}
@@ -153,7 +153,7 @@ class UserDTO
 	/**
 	 * @return integer
 	 */
-	public function getEGN(): string
+	public function getEGN(): int
 	{
 		return $this->egn;
 	}
